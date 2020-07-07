@@ -111,6 +111,49 @@ https://www.jaegertracing.io/docs/1.17/getting-started/[documentation^].
 Before you proceed, make sure that your Jaeger server is up and running. Jaeger can be found
 at the {jaeger-url}[{jaeger-url}^] URL.
 
+*Configuring Jaeger client*
+In a development environment like this guide, it is important that every trace is sampled.
+When every trace is sampled, all spans are available in the Jaeger UI.
+
+Set the following environment variables to sample all traces:
+include::{common-includes}/os-tabs.adoc[]
+[.tab_content.mac_section.linux_section]
+--
+[role='command']
+----
+export JAEGER_SAMPLER_TYPE=const
+export JAEGER_SAMPLER_PARAM=1
+----
+--
+[.tab_content.windows_section]
+--
+[role='command']
+----
+set JAEGER_SAMPLER_TYPE=const
+set JAEGER_SAMPLER_PARAM=1
+----
+--
+
+The `const` value for `JAEGER_SAMPLER_TYPE` configures the Jaeger client sampler to make the same sampling decision,
+based on the sampler parameter.
+It either samples all traces (sampler parameter is 1) or none (sampler parameter is 0).
+
+The `1` value for JAEGER_SAMPLER_PARAM` configures the Jaeger sampler to sample all traces.
+
+In a production environment, this configuration could cause a lot of overhead on the application and a lower sampling
+rate can be used. The different values for client sampling configuration can be found in the
+https://www.jaegertracing.io/docs/1.18/sampling/#client-sampling-configuration[sampling^] documentation.
+
+Similarly, in a production environment, Jaeger may not be running in the same host as the application.
+In this case, you must set the hostname of the Jaeger server to the `JAEGER_AGENT_HOST` environment variable and
+the port for communicating with the Jaeger host to the `JAEGER_AGENT_PORT` environment variable.
+
+Check https://github.com/jaegertracing/jaeger-client-java/tree/master/jaeger-core#configuration-via-environment[here^]
+for a list of all configuration environment variables.
+
+Since the environment variables configure the Jaeger client, these environment variables must be configured in the
+command-line sessions where you will start the Open Liberty server.
+
 // =================================================================================================
 // Getting Started
 // =================================================================================================
@@ -119,10 +162,28 @@ include::{common-includes}/gitclone.adoc[]
 
 === Try what you'll build
 
-The `finish` directory in the root of this guide contains the finished application. Give it a try before you proceed.
-
+The `finish` directory in the root of this guide contains the finished application.
+Give it a try before you proceed.
 
 Open a command-line session and navigate to the `finish/inventory` directory.
+Set the following environment variables to configure the Jaeger client:
+include::{common-includes}/os-tabs.adoc[]
+[.tab_content.mac_section.linux_section]
+--
+[role='command']
+----
+export JAEGER_SAMPLER_TYPE=const
+export JAEGER_SAMPLER_PARAM=1
+----
+--
+[.tab_content.windows_section]
+--
+[role='command']
+----
+set JAEGER_SAMPLER_TYPE=const
+set JAEGER_SAMPLER_PARAM=1
+----
+--
 Run the following Maven goal to build the `inventory` service and deploy it to Open Liberty:
 [role="command"]
 ----
@@ -130,6 +191,24 @@ mvn liberty:run
 ----
 
 Open another command-line session and navigate to the `finish/system` directory.
+Set the following environment variables to configure the Jaeger client:
+include::{common-includes}/os-tabs.adoc[]
+[.tab_content.mac_section.linux_section]
+--
+[role='command']
+----
+export JAEGER_SAMPLER_TYPE=const
+export JAEGER_SAMPLER_PARAM=1
+----
+--
+[.tab_content.windows_section]
+--
+[role='command']
+----
+set JAEGER_SAMPLER_TYPE=const
+set JAEGER_SAMPLER_PARAM=1
+----
+--
 Run the following Maven goal to build the `system` service and deploy it to Open Liberty:
 [role="command"]
 ----
@@ -190,6 +269,24 @@ When you run Open Liberty in dev mode, the server listens for file changes and a
 updates whenever you save a new change.
 
 Open a command-line session and navigate to the `start/inventory` directory.
+Set the following environment variables to configure the Jaeger client:
+include::{common-includes}/os-tabs.adoc[]
+[.tab_content.mac_section.linux_section]
+--
+[role='command']
+----
+export JAEGER_SAMPLER_TYPE=const
+export JAEGER_SAMPLER_PARAM=1
+----
+--
+[.tab_content.windows_section]
+--
+[role='command']
+----
+set JAEGER_SAMPLER_TYPE=const
+set JAEGER_SAMPLER_PARAM=1
+----
+--
 Run the following Maven goal to start the `inventory` service in dev mode:
 [role="command"]
 ----
@@ -197,6 +294,24 @@ mvn liberty:dev
 ----
 
 Open a command-line session and navigate to the `start/system` directory.
+Set the following environment variables to configure the Jaeger client:
+include::{common-includes}/os-tabs.adoc[]
+[.tab_content.mac_section.linux_section]
+--
+[role='command']
+----
+export JAEGER_SAMPLER_TYPE=const
+export JAEGER_SAMPLER_PARAM=1
+----
+--
+[.tab_content.windows_section]
+--
+[role='command']
+----
+set JAEGER_SAMPLER_TYPE=const
+set JAEGER_SAMPLER_PARAM=1
+----
+--
 Run the following Maven goal to start the `system` service in dev mode:
 [role="command"]
 ----
@@ -254,11 +369,12 @@ Because tracing of all JAX-RS methods is enabled by default, you need only to en
 [hotspot=mpOpenTracing file=0]`MicroProfile OpenTracing` feature in the `server.xml` file
 to see some basic traces in Jaeger.
 
-To add the availability of Jaeger APIs to the application, `third-party` must be added to the types of API packages that
-this class loader supports.
+OpenTracing API is exposed as third party API in Liberty.
+To add the visibility of OpenTracing APIs to the application, `third-party` must be added to the types of API packages
+that this class loader supports.
 Instead of explicitly configuring a list of API packages which includes `third-party`, the value `+third-party` can be
-set to the [hotspot=thirdParty]`apiTypeVisibility` attribute of the [hotspot=thirdParty]`<classLoader />`
-configuration to add `third-party` to the default list of API package types supported.
+set to the [hotspot=thirdParty]`apiTypeVisibility` attribute of the [hotspot=thirdParty]`<classLoader />` configuration
+to add third-party to the default list of API package types supported.
 
 server.xml
 [source, xml, linenums, role='code_column']
