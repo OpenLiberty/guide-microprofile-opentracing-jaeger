@@ -239,7 +239,7 @@ The `const` value for `JAEGER_SAMPLER_TYPE` configures the Jaeger client sampler
 based on the sampler parameter.
 It either samples all traces (sampler parameter is 1) or none (sampler parameter is 0).
 
-The `1` value for JAEGER_SAMPLER_PARAM` configures the Jaeger sampler to sample all traces.
+The `1` value for `JAEGER_SAMPLER_PARAM` configures the Jaeger sampler to sample all traces.
 
 In a production environment, this configuration could cause a lot of overhead on the application and a lower sampling
 rate can be used. The different values for client sampling configuration can be found in the
