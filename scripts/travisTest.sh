@@ -9,6 +9,10 @@ set -euxo pipefail
 
 # LMP 3.0+ goals are listed here: https://github.com/OpenLiberty/ci.maven#goals
 
+## Set configuration environment variables
+export JAEGER_SAMPLER_TYPE=const
+export JAEGER_SAMPLER_PARAM=1
+
 ## Rebuild the application
 #       package                   - Take the compiled code and package it in its distributable format.
 #       liberty:create            - Create a Liberty server.

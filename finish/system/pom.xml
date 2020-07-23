@@ -16,6 +16,10 @@
         <!-- Open Liberty runtime -->
         <liberty.var.default.http.port>9080</liberty.var.default.http.port>
         <liberty.var.default.https.port>9443</liberty.var.default.https.port>
+
+        <!-- Jaeger configuration -->
+        <liberty.env.JAEGER_SAMPLER_TYPE>const</liberty.env.JAEGER_SAMPLER_TYPE>
+        <liberty.env.JAEGER_SAMPLER_PARAM>1</liberty.env.JAEGER_SAMPLER_PARAM>
     </properties>
 
     <dependencies>

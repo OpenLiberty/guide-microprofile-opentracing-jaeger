@@ -20,6 +20,16 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
         <liberty.var.system.http.port>9080</liberty.var.system.http.port>
         <liberty.var.default.http.port>9081</liberty.var.default.http.port>
         <liberty.var.default.https.port>9444</liberty.var.default.https.port>
+
+        <!-- Jaeger configuration -->
+        <!-- tag::jaegerClientConfig[] -->
+        <!-- tag::samplerTypeConfig[] -->
+        <liberty.env.JAEGER_SAMPLER_TYPE>const</liberty.env.JAEGER_SAMPLER_TYPE>
+        <!-- end::samplerTypeConfig[] -->
+        <!-- tag::samplerParamConfig[] -->
+        <liberty.env.JAEGER_SAMPLER_PARAM>1</liberty.env.JAEGER_SAMPLER_PARAM>
+        <!-- end::samplerParamConfig[] -->
+        <!-- end::jaegerClientConfig[] -->
     </properties>
 
     <dependencies>
