@@ -23,8 +23,12 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
         <!-- Jaeger configuration -->
         <!-- tag::jaegerClientConfig[] -->
+        <!-- tag::samplerTypeConfig[] -->
         <liberty.env.JAEGER_SAMPLER_TYPE>const</liberty.env.JAEGER_SAMPLER_TYPE>
+        <!-- end::samplerTypeConfig[] -->
+        <!-- tag::samplerParamConfig[] -->
         <liberty.env.JAEGER_SAMPLER_PARAM>1</liberty.env.JAEGER_SAMPLER_PARAM>
+        <!-- end::samplerParamConfig[] -->
         <!-- end::jaegerClientConfig[] -->
     </properties>
 
