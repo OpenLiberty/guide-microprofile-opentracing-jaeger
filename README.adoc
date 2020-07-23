@@ -63,11 +63,7 @@ to demonstrate tracing in a distributed environment. If all the components were 
 server, then any logging software would do the trick.
 
 == Additional prerequisites
-You will use Docker in this guide to deploy the Jaeger server. For Docker installation instructions, refer to the
-official https://docs.docker.com/install/[Docker documentation^].
-
-*Deploying Jaeger*
-
+Before you begin, deploy the Jaeger all-in-one executable to start the Jaeger tracing system.
 The Jaeger all-in-one executable is configured for quick local testing.
 You can find information about the Jaeger server and instructions for starting the all-in-one executable in their
 https://www.jaegertracing.io/docs/1.17/getting-started/#all-in-one[documentation^].
