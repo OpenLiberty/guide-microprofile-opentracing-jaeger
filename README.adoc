@@ -12,7 +12,7 @@
 :page-essential: false
 :page-releasedate: 2018-03-16
 :page-description: Explore how to enable and customize tracing of JAX-RS and non-JAX-RS methods by using Jaeger and MicroProfile OpenTracing.
-:page-tags: ['MicroProfile', 'OpenTracing', 'microservices', '@Traced']
+:page-tags: ['MicroProfile', 'OpenTracing', '@Traced']
 :page-permalink: /guides/{projectid}
 :imagesdir: /img/guide/{projectid}
 :page-related-guides: ['cdi-intro', 'microprofile-opentracing']
@@ -282,6 +282,7 @@ another `@Traced` annotation.
 Enable tracing of the [hotspot=list file=0]`list()` non-JAX-RS method by updating [hotspot=Traced file=0]`@Traced` as shown.
 
 Point to the {inv-url}[{inv-url}^] URL and check your Jaeger server at {jaeger-url}[{jaeger-url}^].
+If you have the Jaeger UI open from a previous step, refresh the page.
 Select the `inventory` traces and click the `Find Traces` button.
 
 You see a new trace record that is two spans long with one span for the [hotspot=listContents file=1 hide_tags=Traced-false]`listContents()`
@@ -319,6 +320,7 @@ methods.
 Disable tracing of the [hotspot=listContents file=1]`listContents()` JAX-RS method by setting [hotspot=Traced-false file=1]`@Traced(false)`.
 
 Point to the {inv-url}[{inv-url}^] URL and check your Jaeger server at {jaeger-url}[{jaeger-url}^].
+If you have the Jaeger UI open from a previous step, refresh the page.
 Select the `inventory` traces and click the `Find Traces` button.
 You see a new trace record that is just one span long for the remaining [hotspot=list file=0]`list()` method in the
 `InventoryManager` class.
@@ -367,6 +369,7 @@ It's good practice to define custom spans inside such statements.
 Otherwise, any exceptions that are thrown before the span is closed will leak the active span.
 
 Point to the {inv-url}/localhost[{inv-url}/localhost^] URL and check your Jaeger server at {jaeger-url}[{jaeger-url}^].
+If you have the Jaeger UI open from a previous step, refresh the page.
 Select the `inventory` traces and click the `Find Traces` button.
 Verify that the spans in the new trace have the following names:
 
