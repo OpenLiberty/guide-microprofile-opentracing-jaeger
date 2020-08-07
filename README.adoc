@@ -47,11 +47,18 @@ Without a distributed tracing system in place, analyzing the workflows of operat
 particularly in regard to pinpointing when and by whom a request is received, as well as when a response
 is sent back.
 
-MicroProfile OpenTracing enables distributed tracing in microservices without adding any explicit
-distributed tracing code to the application. Note that the MicroProfile OpenTracing specification does
-not address the problem of defining, implementing, or configuring the underlying distributed tracing
-system. Rather, the specification makes it easy to instrument services with distributed tracing given
-an existing distributed tracing system.
+`Tracer` and `Span` are two critical types in the OpenTracing specification.
+The `Span` type is the primary building block of a distributed trace, representing an individual unit of work done
+in a distributed system.
+The `Trace` type in OpenTracing can be thought of as a directed acyclic graph (DAG) of `Span`s, where the edges between
+`Span`s are called References.
+The `Tracer` interface creates `Span`s and understands how to serialize and deserialize their metadata across process
+boundaries.
+
+MicroProfile OpenTracing enables distributed tracing in microservices. Note that the MicroProfile OpenTracing
+specification does not address the problem of defining, implementing, or configuring the underlying distributed tracing
+system. Rather, the specification makes it easy to instrument services with distributed tracing given an
+existing distributed tracing system.
 
 https://www.jaegertracing.io/[Jaeger^] is a an open-source distributed tracing system which is compatible with the
 OpenTracing specification. Jaeger also provides an implementation of `Tracer` in their client package that is compatible
@@ -240,7 +247,7 @@ Because tracing of all JAX-RS methods is enabled by default, you need only to en
 [hotspot=mpOpenTracing file=0]`MicroProfile OpenTracing` feature in the `server.xml` file
 to see some basic traces in Jaeger.
 
-OpenTracing API is exposed as third party API in Liberty.
+OpenTracing API is exposed as a third party API in Liberty.
 To add the visibility of OpenTracing APIs to the application, `third-party` must be added to the types of API packages
 that this class loader supports.
 Instead of explicitly configuring a list of API packages which includes `third-party`, the value `+third-party` can be
