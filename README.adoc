@@ -50,10 +50,10 @@ is sent back.
 `Tracer` and `Span` are two critical types in the OpenTracing specification.
 The `Span` type is the primary building block of a distributed trace, representing an individual unit of work done
 in a distributed system.
-The `Trace` type in OpenTracing can be thought of as a directed acyclic graph (DAG) of `Span`s, where the edges between
-`Span`s are called References.
-The `Tracer` interface creates `Span`s and understands how to serialize and deserialize their metadata across process
-boundaries.
+The `Trace` type in OpenTracing can be thought of as a directed acyclic graph (DAG) of `Spans`, where the edges between
+`Spans` are called References.
+The `Tracer` interface creates `Spans` and `Traces` and understands how to serialize and deserialize their metadata
+across process boundaries.
 
 MicroProfile OpenTracing enables distributed tracing in microservices. Note that the MicroProfile OpenTracing
 specification does not address the problem of defining, implementing, or configuring the underlying distributed tracing
