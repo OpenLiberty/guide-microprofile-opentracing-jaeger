@@ -71,7 +71,7 @@ environment.
 If all the components were run on a single server, then any logging software would be sufficient.
 
 == Additional prerequisites
-Before you begin, deploy the Jaeger all-in-one executable file to start the Jaeger tracing system.\
+Before you begin, deploy the Jaeger all-in-one executable file to start the Jaeger tracing system.
 The Jaeger all-in-one executable file is configured for quick local testing.
 You can find information about the Jaeger server and instructions for starting the all-in-one executable file in their
 https://www.jaegertracing.io/docs/1.17/getting-started/#all-in-one[documentation^].
