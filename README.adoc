@@ -249,7 +249,7 @@ Because tracing of all JAX-RS methods is enabled by default, you only need to en
 [hotspot=mpOpenTracing file=0]`MicroProfile OpenTracing` feature in the `server.xml` file
 to see some basic traces in Jaeger.
 
-The OpenTracing API is exposed as a third party API in Open Liberty.
+The OpenTracing API is exposed as a third-party API in Open Liberty.
 To add the visibility of OpenTracing APIs to the application, add `third-party` to the types of API packages
 that this class loader supports.
 Instead of explicitly configuring a list of API packages that includes `third-party`, set the `+third-party` value
