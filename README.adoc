@@ -1,4 +1,4 @@
-// Copyright (c) 2017, 2020 IBM Corporation and others.
+// Copyright (c) 2020 IBM Corporation and others.
 // Licensed under Creative Commons Attribution-NoDerivatives
 // 4.0 International (CC BY-ND 4.0)
 //   https://creativecommons.org/licenses/by-nd/4.0/
@@ -10,7 +10,7 @@
 :page-duration: 20 minutes
 :page-guide-category: microprofile
 :page-essential: false
-:page-releasedate: 2018-03-16
+:page-releasedate: 2020-08-20
 :page-description: Explore how to enable and customize tracing of JAX-RS and non-JAX-RS methods by using Jaeger and MicroProfile OpenTracing.
 :page-tags: ['MicroProfile', 'OpenTracing', '@Traced']
 :page-permalink: /guides/{projectid}
