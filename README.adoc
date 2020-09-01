@@ -143,7 +143,8 @@ sessions where you ran the system and inventory services.
 Alternatively, you can run the `liberty:stop` goal from the `finish` directory in another command-line session:
 [role="command"]
 ----
-mvn liberty:stop
+ mvn -pl system liberty:stop
+ mvn -pl inventory liberty:stop
 ----
 
 // =================================================================================================
