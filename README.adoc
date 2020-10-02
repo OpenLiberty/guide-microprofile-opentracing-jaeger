@@ -91,6 +91,7 @@ The `finish` directory in the root of this guide contains the finished applicati
 Give it a try before you proceed.
 
 Open a command-line session and navigate to the `finish/inventory` directory.
+
 Run the following Maven goal to build the `inventory` service and deploy it to Open Liberty:
 [role="command"]
 ----
