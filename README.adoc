@@ -12,7 +12,7 @@
 :page-essential: false
 :page-releasedate: 2020-08-20
 :page-description: Explore how to enable and customize tracing of JAX-RS and non-JAX-RS methods by using Jaeger and MicroProfile OpenTracing.
-:page-tags: ['MicroProfile', 'OpenTracing', '@Traced']
+:page-tags: ['MicroProfile']
 :page-permalink: /guides/{projectid}
 :imagesdir: /img/guide/{projectid}
 :page-related-guides: ['cdi-intro', 'microprofile-opentracing']
