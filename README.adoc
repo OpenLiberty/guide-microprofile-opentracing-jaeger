@@ -449,6 +449,7 @@ Disable tracing of the [hotspot=listContents file=1]`listContents()` JAX-RS meth
 // static guide instructions:
 ifndef::cloud-hosted[]
 Go to the {inv-url}[{inv-url}^] URL and check your Jaeger server at the {jaeger-url}[{jaeger-url}^] URL.
+If you have the Jaeger UI open from a previous step, refresh the page.
 endif::[]
 
 // cloud-hosted guide instructions:
@@ -460,9 +461,9 @@ curl http://localhost:9081/inventory/systems
 {: codeblock}
 
 Check your Jaeger server at the **`https://accountname-16686.theiadocker-4.proxy.cognitiveclass.ai`** URL.
+If you have the Jaeger UI open from a previous step, refresh the page.
 endif::[]
 
-If you have the Jaeger UI open from a previous step, refresh the page.
 Select the `inventory` traces and click the **Find Traces** button.
 You see a new trace record that is just one span long for the remaining [hotspot=list file=0]`list()` method in the
 `InventoryManager` class.
