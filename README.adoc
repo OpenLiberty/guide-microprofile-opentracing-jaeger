@@ -224,6 +224,7 @@ ifndef::cloud-hosted[]
 ----
 mvn liberty:dev
 ----
+endif::[]
 
 // cloud-hosted guide instructions:
 ifdef::cloud-hosted[]
@@ -244,6 +245,7 @@ ifndef::cloud-hosted[]
 ----
 mvn liberty:dev
 ----
+endif::[]
 
 // cloud-hosted guide instructions:
 ifdef::cloud-hosted[]
