@@ -1,4 +1,4 @@
-// Copyright (c) 2020 IBM Corporation and others.
+// Copyright (c) 2020, 2021 IBM Corporation and others.
 // Licensed under Creative Commons Attribution-NoDerivatives
 // 4.0 International (CC BY-ND 4.0)
 //   https://creativecommons.org/licenses/by-nd/4.0/
@@ -12,7 +12,7 @@
 :page-essential: false
 :page-releasedate: 2020-08-20
 :page-description: Explore how to enable and customize tracing of JAX-RS and non-JAX-RS methods by using Jaeger and MicroProfile OpenTracing.
-:page-tags: ['MicroProfile', 'OpenTracing', '@Traced']
+:page-tags: ['MicroProfile']
 :page-permalink: /guides/{projectid}
 :imagesdir: /img/guide/{projectid}
 :page-related-guides: ['cdi-intro', 'microprofile-opentracing']
@@ -87,9 +87,38 @@ include::{common-includes}/gitclone.adoc[]
 
 === Try what you'll build
 
+// cloud-hosted guide instructions:
+ifdef::cloud-hosted[]
+Run the following docker command to start Jaeger server:
+```
+docker run -d --name jaeger \
+  -e COLLECTOR_ZIPKIN_HTTP_PORT=9411 \
+  -p 5775:5775/udp \
+  -p 6831:6831/udp \
+  -p 6832:6832/udp \
+  -p 5778:5778 \
+  -p 16686:16686 \
+  -p 14268:14268 \
+  -p 14250:14250 \
+  -p 9411:9411 \
+  jaegertracing/all-in-one:1.17
+```
+{: codeblock}
+
+You can find information about the Jaeger server and instructions for starting the all-in-one executable file in the
+[Jaeger documentation](https://www.jaegertracing.io/docs/1.17/getting-started/#all-in-one).
+
+Before you proceed, make sure that your Jaeger server is up and running. 
+Select **Launch Application** from the menu of the IDE, 
+type in **16686** to specify the port number for the Jaeger service, and click the **OK** button. 
+Jaeger can be found at the **`https://accountname-16686.theiadocker-4.proxy.cognitiveclass.ai`** URL, 
+where **accountname** is your account name.
+endif::[]
+
 The `finish` directory in the root of this guide contains the finished application.
 Give it a try before you proceed.
 
+ifndef::cloud-hosted[]
 Open a command-line session and navigate to the `finish/inventory` directory.
 Run the following Maven goal to build the `inventory` service and deploy it to Open Liberty:
 [role="command"]
@@ -103,6 +132,26 @@ Run the following Maven goal to build the `system` service and deploy it to Open
 ----
 mvn liberty:run
 ----
+endif::[]
+
+// cloud-hosted guide instructions:
+ifdef::cloud-hosted[]
+Navigate to the **finish/inventory** directory.
+Run the following Maven goal to build the **inventory** service and deploy it to Open Liberty:
+```
+cd /home/project/guide-microprofile-opentracing-jaeger/finish/inventory
+mvn liberty:run
+```
+{: codeblock}
+
+Open another command-line session and navigate to the **finish/system** directory.
+Run the following Maven goal to build the **system** service and deploy it to Open Liberty:
+```
+cd /home/project/guide-microprofile-opentracing-jaeger/finish/system
+mvn liberty:run
+```
+{: codeblock}
+endif::[]
 
 After you see the following message in both command-line sessions, both of your services are ready:
 
@@ -111,13 +160,32 @@ After you see the following message in both command-line sessions, both of your 
 The defaultServer server is ready to run a smarter planet.
 ----
 
+// static guide instructions:
+ifndef::cloud-hosted[]
 Make sure that your Jaeger server is running and point your browser to the {inv-url}/localhost[{inv-url}/localhost^] URL.
 When you visit this endpoint, you make two GET HTTP requests, one to the `system` service and one to the `inventory`
 service. Both of these requests are configured to be traced, so a new trace is recorded in Jaeger.
 
 To view the traces, go to the {jaeger-url}[{jaeger-url}^] URL.
-You can view the traces for the inventory or system services under the **Search** tab in the upper left of the page.
+You can view the traces for the inventory or system services under the **Search** tab.
 Select the services in the **Select a service** menu and click the **Find Traces** button at the end of the section.
+endif::[]
+
+// cloud-hosted guide instructions:
+ifdef::cloud-hosted[]
+Open another command-line session and run the following curl command from the terminal:
+```
+curl http://localhost:9081/inventory/systems/localhost
+```
+{: codeblock}
+
+When you visit this endpoint, you make two GET HTTP requests, one to the **system** service and one to the **inventory**
+service. Both of these requests are configured to be traced, so a new trace is recorded in Jaeger.
+
+To view the traces, go to the **`https://accountname-16686.theiadocker-4.proxy.cognitiveclass.ai`** URL.
+You can view the traces for the inventory or system services under the **Search** tab.
+Select the services in the **Select a service** menu and click the **Find Traces** button at the end of the section.
+endif::[]
 
 If you only see the **jaeger-query** listed in the dropdown, you might need to wait a little longer and refresh the page
 to see the application services.
@@ -141,11 +209,25 @@ image::trace01.png[Finished application's trace,align="center"]
 After you’re finished reviewing the application, stop the Open Liberty servers by pressing `CTRL+C` in the command-line
 sessions where you ran the system and inventory services.
 Alternatively, you can run the following goals from the `finish` directory in another command-line session:
+
+// static guide instructions:
+ifndef::cloud-hosted[]
 [role="command"]
 ----
  mvn -pl system liberty:stop
  mvn -pl inventory liberty:stop
 ----
+endif::[]
+
+// cloud-hosted guide instructions:
+ifdef::cloud-hosted[]
+```
+cd /home/project/guide-microprofile-opentracing-jaeger/finish
+mvn -pl system liberty:stop
+mvn -pl inventory liberty:stop
+```
+{: codeblock}
+endif::[]
 
 // =================================================================================================
 // Running the services
@@ -159,17 +241,43 @@ recompiles and deploys your updates whenever you save a new change.
 
 Open a command-line session and navigate to the `start/inventory` directory.
 Run the following Maven goal to start the `inventory` service in dev mode:
+// static guide instructions:
+ifndef::cloud-hosted[]
 [role="command"]
 ----
 mvn liberty:dev
 ----
+endif::[]
+
+// cloud-hosted guide instructions:
+ifdef::cloud-hosted[]
+```
+cd /home/project/guide-microprofile-opentracing-jaeger/start/inventory
+mvn liberty:dev
+```
+{: codeblock}
+endif::[]
+
 
 Open a command-line session and navigate to the `start/system` directory.
 Run the following Maven goal to start the `system` service in dev mode:
 [role="command"]
+// static guide instructions:
+ifndef::cloud-hosted[]
+[role="command"]
 ----
 mvn liberty:dev
 ----
+endif::[]
+
+// cloud-hosted guide instructions:
+ifdef::cloud-hosted[]
+```
+cd /home/project/guide-microprofile-opentracing-jaeger/start/system
+mvn liberty:dev
+```
+{: codeblock}
+endif::[]
 
 After you see the following message, your application server in dev mode is ready:
 [role="no_copy"]
@@ -180,10 +288,28 @@ Press the Enter key to run tests on demand.
 Dev mode holds your command-line session to listen for file changes.
 Open another command-line session to continue, or open the project in your editor.
 
+// static guide instructions:
+ifndef::cloud-hosted[]
 When the servers start, you can find the `system` and `inventory` services at the following URLs:
 
 - {sys-url}[{sys-url}^]
 - {inv-url}[{inv-url}^]
+endif::[]
+
+// cloud-hosted guide instructions:
+ifdef::cloud-hosted[]
+When the servers start, you can find the **system** service by running the following curl command:
+```
+curl http://localhost:9080/system/properties
+```
+{: codeblock}
+
+and the **inventory** service by running the following curl command:
+```
+curl http://localhost:9081/inventory/systems
+```
+{: codeblock}
+endif::[]
 
 // =================================================================================================
 // Existing Tracer implementation
@@ -290,9 +416,25 @@ explicitly overridden by another `@Traced` annotation.
 [role="edit_command_text"]
 Enable tracing of the [hotspot=list file=0]`list()` non-JAX-RS method by updating [hotspot=Traced file=0]`@Traced` as shown.
 
+// static guide instructions:
+ifndef::cloud-hosted[]
 Go to the {inv-url}[{inv-url}^] URL and check your Jaeger server at the {jaeger-url}[{jaeger-url}^] URL.
 If you have the Jaeger UI open from a previous step, refresh the page.
 Select the `inventory` traces and click the **Find Traces** button.
+endif::[]
+
+// cloud-hosted guide instructions:
+ifdef::cloud-hosted[]
+Run the following curl command:
+```
+curl http://localhost:9081/inventory/systems
+```
+{: codeblock}
+
+Check your Jaeger server at the **`https://accountname-16686.theiadocker-4.proxy.cognitiveclass.ai`** URL.
+If you have the Jaeger UI open from a previous step, refresh the page.
+Select the **inventory** traces and click the **Find Traces** button.
+endif::[]
 
 You see a new trace record that is two spans long. One span is for the
 [hotspot=listContents file=1 hide_tags=Traced-false]`listContents()` JAX-RS method in the
@@ -329,11 +471,29 @@ methods.
 [role="edit_command_text"]
 Disable tracing of the [hotspot=listContents file=1]`listContents()` JAX-RS method by setting [hotspot=Traced-false file=1]`@Traced(false)`.
 
+// static guide instructions:
+ifndef::cloud-hosted[]
 Go to the {inv-url}[{inv-url}^] URL and check your Jaeger server at the {jaeger-url}[{jaeger-url}^] URL.
 If you have the Jaeger UI open from a previous step, refresh the page.
 Select the `inventory` traces and click the **Find Traces** button.
 You see a new trace record that is just one span long for the remaining [hotspot=list file=0]`list()` method in the
 `InventoryManager` class.
+endif::[]
+
+// cloud-hosted guide instructions:
+ifdef::cloud-hosted[]
+Run the following curl command:
+```
+curl http://localhost:9081/inventory/systems
+```
+{: codeblock}
+
+Check your Jaeger server at the **`https://accountname-16686.theiadocker-4.proxy.cognitiveclass.ai`** URL.
+If you have the Jaeger UI open from a previous step, refresh the page.
+Select the **inventory** traces and click the **Find Traces** button.
+You see a new trace record that is just one span long for the remaining **list()** method in the
+**InventoryManager** class.
+endif::[]
 
 Verify that you see the following span:
 
@@ -378,10 +538,26 @@ This [hotspot=Try file=0]`try` block is called a `try-with-resources` statement,
 It's good practice to define custom spans inside such statements.
 Otherwise, any exceptions that are thrown before the span closes will leak the active span.
 
+// static guide instructions:
+ifndef::cloud-hosted[]
 Go to the {inv-url}/localhost[{inv-url}/localhost^] URL and check your Jaeger server at the {jaeger-url}[{jaeger-url}^]
 URL.
 If you have the Jaeger UI open from a previous step, refresh the page.
 Select the `inventory` traces and click the **Find Traces** button.
+endif::[]
+
+// cloud-hosted guide instructions:
+ifdef::cloud-hosted[]
+Run the following curl command:
+```
+curl http://localhost:9081/inventory/systems/localhost
+```
+{: codeblock}
+
+Check your Jaeger server at the **`https://accountname-16686.theiadocker-4.proxy.cognitiveclass.ai`** URL.
+If you have the Jaeger UI open from a previous step, refresh the page.
+Select the **inventory** traces and click the **Find Traces** button.
+endif::[]
 
 Verify that there are three spans from `inventory` and one span from `system`:
 
@@ -427,7 +603,20 @@ Since you started Open Liberty in dev mode, run the tests for the system and inv
 When you are done checking out the services, exit dev mode by pressing `CTRL+C` in the shell sessions where you
 ran the `system` and `inventory` services,  or by typing `q` and then pressing the `enter/return key`.
 
+// static guide instructions:
+ifndef::cloud-hosted[]
 Finally, stop the `Jaeger` service that you started in the **Additional prerequisites** section.
+endif::[]
+
+// cloud-hosted guide instructions:
+ifdef::cloud-hosted[]
+Finally, stop the **Jaeger** service that you started in the previous step.
+```
+docker stop jaeger
+docker rm jaeger
+```
+{: codeblock}
+endif::[]
 
 // =================================================================================================
 // Great work! You're done!
