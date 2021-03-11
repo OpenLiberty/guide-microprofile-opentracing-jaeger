@@ -167,7 +167,7 @@ When you visit this endpoint, you make two GET HTTP requests, one to the `system
 service. Both of these requests are configured to be traced, so a new trace is recorded in Jaeger.
 
 To view the traces, go to the {jaeger-url}[{jaeger-url}^] URL.
-You can view the traces for the inventory or system services under the **Search** tab in the upper left of the page.
+You can view the traces for the inventory or system services under the **Search** tab.
 Select the services in the **Select a service** menu and click the **Find Traces** button at the end of the section.
 endif::[]
 
@@ -183,7 +183,7 @@ When you visit this endpoint, you make two GET HTTP requests, one to the **syste
 service. Both of these requests are configured to be traced, so a new trace is recorded in Jaeger.
 
 To view the traces, go to the **`https://accountname-16686.theiadocker-4.proxy.cognitiveclass.ai`** URL.
-You can view the traces for the inventory or system services under the **Search** tab in the upper left of the page.
+You can view the traces for the inventory or system services under the **Search** tab.
 Select the services in the **Select a service** menu and click the **Find Traces** button at the end of the section.
 endif::[]
 
