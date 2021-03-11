@@ -87,41 +87,6 @@ include::{common-includes}/gitclone.adoc[]
 
 === Try what you'll build
 
-The `finish` directory in the root of this guide contains the finished application.
-Give it a try before you proceed.
-
-Open a command-line session and navigate to the `finish/inventory` directory.
-Run the following Maven goal to build the `inventory` service and deploy it to Open Liberty:
-[role="command"]
-----
-mvn liberty:run
-----
-
-Open another command-line session and navigate to the `finish/system` directory.
-Run the following Maven goal to build the `system` service and deploy it to Open Liberty:
-[role="command"]
-----
-mvn liberty:run
-----
-
-After you see the following message in both command-line sessions, both of your services are ready:
-
-[role="no_copy"]
-----
-The defaultServer server is ready to run a smarter planet.
-----
-
-// static guide instructions:
-ifndef::cloud-hosted[]
-Make sure that your Jaeger server is running and point your browser to the {inv-url}/localhost[{inv-url}/localhost^] URL.
-When you visit this endpoint, you make two GET HTTP requests, one to the `system` service and one to the `inventory`
-service. Both of these requests are configured to be traced, so a new trace is recorded in Jaeger.
-
-To view the traces, go to the {jaeger-url}[{jaeger-url}^] URL.
-You can view the traces for the inventory or system services under the **Search** tab in the upper left of the page.
-Select the services in the **Select a service** menu and click the **Find Traces** button at the end of the section.
-endif::[]
-
 // cloud-hosted guide instructions:
 ifdef::cloud-hosted[]
 Run the following docker command to start Jaeger server:
@@ -148,7 +113,66 @@ Select **Launch Application** from the menu of the IDE,
 type in **16686** to specify the port number for the Jaeger service, and click the **OK** button. 
 Jaeger can be found at the **`https://accountname-16686.theiadocker-4.proxy.cognitiveclass.ai`** URL, 
 where **accountname** is your account name.
+endif::[]
 
+The `finish` directory in the root of this guide contains the finished application.
+Give it a try before you proceed.
+
+ifndef::cloud-hosted[]
+Open a command-line session and navigate to the `finish/inventory` directory.
+Run the following Maven goal to build the `inventory` service and deploy it to Open Liberty:
+[role="command"]
+----
+mvn liberty:run
+----
+
+Open another command-line session and navigate to the `finish/system` directory.
+Run the following Maven goal to build the `system` service and deploy it to Open Liberty:
+[role="command"]
+----
+mvn liberty:run
+----
+endif::[]
+
+// cloud-hosted guide instructions:
+ifdef::cloud-hosted[]
+Navigate to the **finish/inventory** directory.
+Run the following Maven goal to build the **inventory** service and deploy it to Open Liberty:
+```
+cd /home/project/guide-microprofile-opentracing-jaeger/finish/inventory
+mvn liberty:run
+```
+{: codeblock}
+
+Open another command-line session and navigate to the **finish/system** directory.
+Run the following Maven goal to build the **system** service and deploy it to Open Liberty:
+```
+cd /home/project/guide-microprofile-opentracing-jaeger/finish/system
+mvn liberty:run
+```
+{: codeblock}
+endif::[]
+
+After you see the following message in both command-line sessions, both of your services are ready:
+
+[role="no_copy"]
+----
+The defaultServer server is ready to run a smarter planet.
+----
+
+// static guide instructions:
+ifndef::cloud-hosted[]
+Make sure that your Jaeger server is running and point your browser to the {inv-url}/localhost[{inv-url}/localhost^] URL.
+When you visit this endpoint, you make two GET HTTP requests, one to the `system` service and one to the `inventory`
+service. Both of these requests are configured to be traced, so a new trace is recorded in Jaeger.
+
+To view the traces, go to the {jaeger-url}[{jaeger-url}^] URL.
+You can view the traces for the inventory or system services under the **Search** tab in the upper left of the page.
+Select the services in the **Select a service** menu and click the **Find Traces** button at the end of the section.
+endif::[]
+
+// cloud-hosted guide instructions:
+ifdef::cloud-hosted[]
 Open another command-line session by selecting **Terminal** > **New Terminal** from the menu of the IDE, 
 and run the following curl command from the terminal:
 ```
