@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 import io.openliberty.guides.inventory.client.SystemClient;
 import io.openliberty.guides.inventory.model.InventoryList;
+import io.openliberty.guides.inventory.model.SystemData;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.util.List;
@@ -25,6 +26,7 @@ import org.eclipse.microprofile.opentracing.Traced;
 
 import io.opentracing.Scope;
 import io.opentracing.Tracer;
+import io.opentracing.Span;
 
 @ApplicationScoped
 // tag::InventoryManager[]
@@ -50,17 +52,15 @@ public class InventoryManager {
         SystemData system = new SystemData(hostname, props);
         // tag::Add[]
         if (!systems.contains(system)) {
-            // tag::Try[]
             // tag::addSpan[]
-            try (Scope childScope = tracer.buildSpan("add() Span")
-                                              .startActive(true)) {
+            Span span = tracer.buildSpan("add() Span").start();
             // end::addSpan[]
+            // tag::Try[]
+            try (Scope childScope = tracer.activateSpan(span)) {
                 // tag::addToInvList[]
                 systems.add(system);
                 // end::addToInvList[]
-            // tag::endTry[]
             }
-            // end::endTry[]
             // end::Try[]
         }
         // end::Add[]

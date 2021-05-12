@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Collections;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import io.openliberty.guides.inventory.model.SystemData;
 
 @ApplicationScoped
 public class InventoryManager {
