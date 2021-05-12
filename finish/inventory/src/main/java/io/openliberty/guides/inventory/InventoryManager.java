@@ -25,12 +25,11 @@ import org.eclipse.microprofile.opentracing.Traced;
 
 import io.opentracing.Scope;
 import io.opentracing.Tracer;
-import io.openliberty.guides.inventory.model;
 
 @ApplicationScoped
 // tag::InventoryManager[]
 public class InventoryManager {
-    
+
     private List<SystemData> systems = Collections.synchronizedList(new ArrayList<>());
     private SystemClient systemClient = new SystemClient();
     // tag::customTracer[]
@@ -40,7 +39,6 @@ public class InventoryManager {
     public Properties get(String hostname) {
         systemClient.init(hostname, 9080);
         Properties properties = systemClient.getProperties();
-        
         return properties;
     }
 

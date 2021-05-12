@@ -22,17 +22,12 @@ import java.util.List;
 import java.util.Collections;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-import org.eclipse.microprofile.opentracing.Traced;
-
-import io.opentracing.Scope;
-import io.opentracing.Tracer;
-import io.openliberty.guides.inventory.model;
 
 @ApplicationScoped
 public class InventoryManager {
 
     @Inject
-    @ConfigProperty(name="system.http.port")
+    @ConfigProperty(name = "system.http.port")
     int SYSTEM_PORT;
 
     private List<SystemData> systems = Collections.synchronizedList(new ArrayList<>());
