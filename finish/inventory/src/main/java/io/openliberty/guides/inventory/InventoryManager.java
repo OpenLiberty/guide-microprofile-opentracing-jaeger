@@ -25,6 +25,7 @@ import org.eclipse.microprofile.opentracing.Traced;
 
 import io.opentracing.Scope;
 import io.opentracing.Tracer;
+import io.opentracing.Tracer.SpanBuilder;
 import io.openliberty.guides.inventory.model.*;
 
 @ApplicationScoped
