@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.Collections;
 
 import org.eclipse.microprofile.opentracing.Traced;
-
 import io.opentracing.Scope;
 import io.opentracing.Tracer;
 import io.opentracing.Span;
