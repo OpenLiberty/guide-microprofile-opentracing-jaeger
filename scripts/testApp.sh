@@ -21,7 +21,7 @@ export JAEGER_SAMPLER_PARAM=1
 mvn -Dhttp.keepAlive=false \
     -Dmaven.wagon.http.pool=false \
     -Dmaven.wagon.httpconnectionManager.ttlSeconds=120 \
-    -q clean package liberty:create liberty:install-feature liberty:deploy
+    -pl system,inventory -q clean package liberty:create liberty:install-feature liberty:deploy
     
 ## Run the tests
 # These commands are separated because if one of the commands fail, the test script will fail and exit.
@@ -34,6 +34,6 @@ mvn -pl system,inventory liberty:start
 mvn -Dhttp.keepAlive=false \
     -Dmaven.wagon.http.pool=false \
     -Dmaven.wagon.httpconnectionManager.ttlSeconds=120 \
-    failsafe:integration-test
+    -pl system,inventory failsafe:integration-test
 mvn -pl system,inventory liberty:stop
 mvn -pl system,inventory failsafe:verify
