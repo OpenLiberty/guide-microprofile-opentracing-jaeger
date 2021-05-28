@@ -59,6 +59,8 @@ public class InventoryManager {
                 // tag::addToInvList[]
                 systems.add(system);
                 // end::addToInvList[]
+            } finally {
+                span.finish();
             }
             // end::Try[]
         }
