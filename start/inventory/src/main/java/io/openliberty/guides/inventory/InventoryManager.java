@@ -1,15 +1,15 @@
-//tag::copyright[]
+// tag::copyright[]
 /*******************************************************************************
-* Copyright (c) 2017, 2020 IBM Corporation and others.
-* All rights reserved. This program and the accompanying materials
-* are made available under the terms of the Eclipse Public License v1.0
-* which accompanies this distribution, and is available at
-* http://www.eclipse.org/legal/epl-v10.html
-*
-* Contributors:
-*     IBM Corporation - Initial implementation
-*******************************************************************************/
-//end::copyright[]
+ * Copyright (c) 2017, 2021 IBM Corporation and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     IBM Corporation - Initial implementation
+ *******************************************************************************/
+// end::copyright[]
 package io.openliberty.guides.inventory;
 
 import java.util.ArrayList;
@@ -22,17 +22,13 @@ import java.util.List;
 import java.util.Collections;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-import org.eclipse.microprofile.opentracing.Traced;
-
-import io.opentracing.Scope;
-import io.opentracing.Tracer;
-import io.openliberty.guides.inventory.model.*;
+import io.openliberty.guides.inventory.model.SystemData;
 
 @ApplicationScoped
 public class InventoryManager {
 
     @Inject
-    @ConfigProperty(name="system.http.port")
+    @ConfigProperty(name = "system.http.port")
     int SYSTEM_PORT;
 
     private List<SystemData> systems = Collections.synchronizedList(new ArrayList<>());
