@@ -22,6 +22,7 @@ import javax.inject.Inject;
 import java.util.List;
 import java.util.Collections;
 
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.opentracing.Traced;
 import io.opentracing.Scope;
 import io.opentracing.Tracer;
@@ -31,6 +32,10 @@ import io.opentracing.Span;
 // tag::InventoryManager[]
 public class InventoryManager {
 
+    @Inject
+    @ConfigProperty(name = "system.http.port")
+    int SYSTEM_PORT;
+
     private List<SystemData> systems = Collections.synchronizedList(new ArrayList<>());
     private SystemClient systemClient = new SystemClient();
     // tag::customTracer[]
@@ -38,7 +43,7 @@ public class InventoryManager {
     // end::customTracer[]
 
     public Properties get(String hostname) {
-        systemClient.init(hostname, 9080);
+        systemClient.init(hostname, SYSTEM_PORT);
         Properties properties = systemClient.getProperties();
         return properties;
     }
