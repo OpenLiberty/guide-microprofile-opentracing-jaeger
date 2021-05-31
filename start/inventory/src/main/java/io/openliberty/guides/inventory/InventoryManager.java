@@ -38,10 +38,10 @@ public class InventoryManager {
     private List<SystemData> systems = Collections.synchronizedList(new ArrayList<>());
     private SystemClient systemClient = new SystemClient();
 
-
     public Properties get(String hostname) {
         systemClient.init(hostname, SYSTEM_PORT);
-        return systemClient.getProperties();
+        Properties properties = systemClient.getProperties();
+        return properties;
     }
 
     public void add(String hostname, Properties systemProps) {
