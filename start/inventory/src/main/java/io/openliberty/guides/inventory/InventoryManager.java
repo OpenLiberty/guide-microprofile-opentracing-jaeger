@@ -22,7 +22,10 @@ import java.util.List;
 import java.util.Collections;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-import io.openliberty.guides.inventory.model.SystemData;
+import org.eclipse.microprofile.opentracing.Traced;
+import io.opentracing.Scope;
+import io.opentracing.Tracer;
+import io.opentracing.Span;
 
 @ApplicationScoped
 public class InventoryManager {
