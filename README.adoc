@@ -74,7 +74,7 @@ If all the components were run on a single server, then any logging software wou
 Before you begin, deploy the Jaeger all-in-one executable file to start the Jaeger tracing system.
 The Jaeger all-in-one executable file is configured for quick local testing.
 You can find information about the Jaeger server and instructions for starting the all-in-one executable file in the
-https://www.jaegertracing.io/docs/1.17/getting-started/#all-in-one[Jaeger documentation^].
+https://www.jaegertracing.io/docs/1.22/getting-started/#all-in-one[Jaeger documentation^].
 
 Before you proceed, make sure that your Jaeger server is up and running. Jaeger can be found at the
 {jaeger-url}[{jaeger-url}^] URL.
@@ -106,7 +106,7 @@ docker run -d --name jaeger \
 {: codeblock}
 
 You can find information about the Jaeger server and instructions for starting the all-in-one executable file in the
-[Jaeger documentation](https://www.jaegertracing.io/docs/1.17/getting-started/#all-in-one).
+[Jaeger documentation](https://www.jaegertracing.io/docs/1.22/getting-started/#all-in-one).
 
 Before you proceed, make sure that your Jaeger server is up and running. 
 Select **Launch Application** from the menu of the IDE, 
