@@ -187,8 +187,8 @@ You can view the traces for the inventory or system services under the **Search*
 Select the services in the **Select a service** menu and click the **Find Traces** button at the end of the section.
 endif::[]
 
-If you only see the **jaeger-query** listed in the dropdown, you might need to wait a little longer and refresh the page
-to see the application services.
+If you only see the **jaeger-query** option listed in the dropdown, 
+you might need to wait a little longer and refresh the page to see the application services.
 
 View the traces for `inventory`. You'll see the following trace:
 
@@ -282,7 +282,8 @@ endif::[]
 After you see the following message, your application server in dev mode is ready:
 [role="no_copy"]
 ----
-Press the Enter key to run tests on demand.
+************************************************************************
+*    Liberty is running in dev mode.
 ----
 
 Dev mode holds your command-line session to listen for file changes.
@@ -292,8 +293,8 @@ Open another command-line session to continue, or open the project in your edito
 ifndef::cloud-hosted[]
 When the servers start, you can find the `system` and `inventory` services at the following URLs:
 
-- {sys-url}[{sys-url}^]
-- {inv-url}[{inv-url}^]
+* {sys-url}[{sys-url}^]
+* {inv-url}[{inv-url}^]
 endif::[]
 
 // cloud-hosted guide instructions:
@@ -447,7 +448,7 @@ image::trace02.png[Explicit trace span,align="center"]
 {empty} +
 
 InventoryManager.java
-[source, Java, linenums, role='code_column hide_tags=copyright,addSpan,endTry tags=addToInvList']
+[source, Java, linenums, role='code_column hide_tags=copyright,Add tags=addToInvList']
 ----
 include::finish/inventory/src/main/java/io/openliberty/guides/inventory/InventoryManager.java[]
 ----
@@ -469,7 +470,8 @@ methods.
 `inventory/src/main/java/io/openliberty/guides/inventory/InventoryResource.java`
 ----
 [role="edit_command_text"]
-Disable tracing of the [hotspot=listContents file=1]`listContents()` JAX-RS method by setting [hotspot=Traced-false file=1]`@Traced(false)`.
+Disable tracing of the [hotspot=listContents file=1]`listContents()` JAX-RS method
+by setting [hotspot=Traced-false file=1]`@Traced(false)`.
 
 // static guide instructions:
 ifndef::cloud-hosted[]
@@ -515,8 +517,8 @@ include::finish/inventory/src/main/java/io/openliberty/guides/inventory/Inventor
 === Injecting a custom Tracer object
 
 The MicroProfile OpenTracing specification also makes the underlying OpenTracing `Tracer` instance
-available for use. You can access the configured `Tracer` by injecting it into a bean by using the [hotspot=customTracer file=0]`@Inject`
-annotation from the Contexts and Dependency Injections API.
+available for use. You can access the configured `Tracer` by injecting it into a bean by using the
+[hotspot=customTracer file=0]`@Inject` annotation from the Contexts and Dependency Injections API.
 
 Inject the `Tracer` object into the `inventory/src/main/java/io/openliberty/guides/inventory/InventoryManager.java` file.
 Then, use it to define a new child scope in the [hotspot=addSpan file=0]`add()` call.
