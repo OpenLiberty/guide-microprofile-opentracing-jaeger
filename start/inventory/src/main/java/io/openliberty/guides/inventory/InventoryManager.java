@@ -16,13 +16,17 @@ import java.util.ArrayList;
 import java.util.Properties;
 import io.openliberty.guides.inventory.client.SystemClient;
 import io.openliberty.guides.inventory.model.InventoryList;
+import io.openliberty.guides.inventory.model.SystemData;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.util.List;
 import java.util.Collections;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-import io.openliberty.guides.inventory.model.SystemData;
+import org.eclipse.microprofile.opentracing.Traced;
+import io.opentracing.Scope;
+import io.opentracing.Tracer;
+import io.opentracing.Span;
 
 @ApplicationScoped
 public class InventoryManager {
@@ -34,10 +38,10 @@ public class InventoryManager {
     private List<SystemData> systems = Collections.synchronizedList(new ArrayList<>());
     private SystemClient systemClient = new SystemClient();
 
-
     public Properties get(String hostname) {
         systemClient.init(hostname, SYSTEM_PORT);
-        return systemClient.getProperties();
+        Properties properties = systemClient.getProperties();
+        return properties;
     }
 
     public void add(String hostname, Properties systemProps) {
