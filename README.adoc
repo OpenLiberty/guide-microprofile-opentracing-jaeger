@@ -448,7 +448,7 @@ image::trace02.png[Explicit trace span,align="center"]
 {empty} +
 
 InventoryManager.java
-[source, Java, linenums, role='code_column hide_tags=copyright,Add tags=addToInvList']
+[source, Java, linenums, role='code_column tags=addToInvList hide_tags=copyright,Add']
 ----
 include::finish/inventory/src/main/java/io/openliberty/guides/inventory/InventoryManager.java[]
 ----
@@ -503,7 +503,7 @@ image::trace03.png[Disable trace span,align="center"]
 {empty} +
 
 InventoryManager.java
-[source, Java, linenums, role='code_column hide_tags=copyright,addSpan,endTry tags=addToInvList']
+[source, Java, linenums, role='code_column tags=addToInvList hide_tags=copyright,addSpan,endTry']
 ----
 include::finish/inventory/src/main/java/io/openliberty/guides/inventory/InventoryManager.java[]
 ----
