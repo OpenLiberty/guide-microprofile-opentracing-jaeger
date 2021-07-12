@@ -175,7 +175,7 @@ endif::[]
 ifdef::cloud-hosted[]
 Open another command-line session and run the following curl command from the terminal:
 ```
-curl http://localhost:9081/inventory/systems/localhost
+curl -s http://localhost:9081/inventory/systems/localhost | jq
 ```
 {: codeblock}
 
@@ -301,13 +301,13 @@ endif::[]
 ifdef::cloud-hosted[]
 When the servers start, you can find the **system** service by running the following curl command:
 ```
-curl http://localhost:9080/system/properties
+curl -s http://localhost:9080/system/properties | jq
 ```
 {: codeblock}
 
 and the **inventory** service by running the following curl command:
 ```
-curl http://localhost:9081/inventory/systems
+curl -s http://localhost:9081/inventory/systems | jq
 ```
 {: codeblock}
 endif::[]
@@ -428,7 +428,7 @@ endif::[]
 ifdef::cloud-hosted[]
 Run the following curl command:
 ```
-curl http://localhost:9081/inventory/systems
+curl -s http://localhost:9081/inventory/systems | jq
 ```
 {: codeblock}
 
@@ -486,7 +486,7 @@ endif::[]
 ifdef::cloud-hosted[]
 Run the following curl command:
 ```
-curl http://localhost:9081/inventory/systems
+curl -s http://localhost:9081/inventory/systems | jq
 ```
 {: codeblock}
 
@@ -552,7 +552,7 @@ endif::[]
 ifdef::cloud-hosted[]
 Run the following curl command:
 ```
-curl http://localhost:9081/inventory/systems/localhost
+curl -s http://localhost:9081/inventory/systems/localhost | jq
 ```
 {: codeblock}
 
