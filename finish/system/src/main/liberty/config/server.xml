@@ -11,7 +11,7 @@
     <httpEndpoint httpPort="${default.http.port}" httpsPort="${default.https.port}"
                   id="defaultHttpEndpoint" host="*" />
 
-    <webApplication location="system.war" contextRoot="/">
+    <webApplication location="guide-microprofile-opentracing-jaeger-system.war" contextRoot="/">
         <!-- enable visibility to third party apis -->
         <classloader apiTypeVisibility="+third-party"/>
     </webApplication>

@@ -12,7 +12,7 @@
     <httpEndpoint httpPort="${default.http.port}" httpsPort="${default.https.port}"
                   id="defaultHttpEndpoint" host="*" />
 
-    <webApplication location="inventory.war" contextRoot="/">
+    <webApplication location="guide-microprofile-opentracing-jaeger-inventory.war" contextRoot="/">
         <!-- enable visibility to third party apis -->
         <classloader apiTypeVisibility="+third-party"/>
     </webApplication>
