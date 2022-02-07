@@ -20,7 +20,6 @@ import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
-import org.apache.cxf.jaxrs.provider.jsrjsonp.JsrJsonpProvider;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -44,7 +43,6 @@ public class InventoryEndpointIT {
         invUrl = "http://localhost:" + invPort + "/";
 
         Response clearResponse = ClientBuilder.newClient()
-                .register(JsrJsonpProvider.class)
                 .target(invUrl + INVENTORY_SYSTEMS)
                 .request()
                 .delete();
@@ -58,7 +56,6 @@ public class InventoryEndpointIT {
     @BeforeEach
     public void setup() {
         client = ClientBuilder.newClient();
-        client.register(JsrJsonpProvider.class);
     }
 
     @AfterEach
