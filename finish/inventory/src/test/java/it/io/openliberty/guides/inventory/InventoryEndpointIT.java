@@ -32,8 +32,8 @@ public class InventoryEndpointIT {
 
     private Client client;
 
-    private final static String INVENTORY_SYSTEMS = "inventory/systems";
-    private final static String SYSTEM_PROPERTIES = "system/properties";
+    private static final String INVENTORY_SYSTEMS = "inventory/systems";
+    private static final String SYSTEM_PROPERTIES = "system/properties";
 
     @BeforeAll
     public static void oneTimeSetup() throws ServletException {
@@ -113,7 +113,7 @@ public class InventoryEndpointIT {
         this.assertResponse(invUrl, invResponse);
         this.assertResponse(sysUrl, sysResponse);
 
-        JsonObject jsonFromInventory = (JsonObject) 
+        JsonObject jsonFromInventory = (JsonObject)
                                         invResponse.readEntity(JsonObject.class)
                                         .getJsonArray("systems")
                                         .getJsonObject(0)
@@ -142,7 +142,8 @@ public class InventoryEndpointIT {
         this.assertResponse(invUrl, response);
 
         Response badResponse = client.target(invUrl + INVENTORY_SYSTEMS + "/"
-                               + "badhostname").request(MediaType.APPLICATION_JSON).get();
+                               + "badhostname").request(MediaType.APPLICATION_JSON)
+                               .get();
 
         assertEquals(404, badResponse.getStatus(),
                 "BadResponse expected status: 404. Response code not as expected.");
@@ -212,8 +213,9 @@ public class InventoryEndpointIT {
         this.assertResponse(sysUrl, response);
         response.close();
 
-        Response targetResponse = client.target(invUrl 
-                                               + INVENTORY_SYSTEMS + "/localhost").request()
+        Response targetResponse = client.target(invUrl
+                                               + INVENTORY_SYSTEMS + "/localhost")
+                                               .request()
                                                .get();
         targetResponse.close();
     }
