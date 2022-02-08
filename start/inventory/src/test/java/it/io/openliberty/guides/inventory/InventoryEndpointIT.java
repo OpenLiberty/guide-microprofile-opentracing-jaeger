@@ -48,7 +48,8 @@ public class InventoryEndpointIT {
                 .delete();
 
         if (clearResponse.getStatus() != Response.Status.OK.getStatusCode()
-                && clearResponse.getStatus() != Response.Status.NOT_MODIFIED.getStatusCode()) {
+            && clearResponse.getStatus()
+            != Response.Status.NOT_MODIFIED.getStatusCode()) {
             throw new ServletException("Could not clear inventory manager.");
         }
     }
@@ -112,7 +113,8 @@ public class InventoryEndpointIT {
         this.assertResponse(invUrl, invResponse);
         this.assertResponse(sysUrl, sysResponse);
 
-        JsonObject jsonFromInventory = (JsonObject) invResponse.readEntity(JsonObject.class)
+        JsonObject jsonFromInventory = (JsonObject) invResponse
+                .readEntity(JsonObject.class)
                 .getJsonArray("systems")
                 .getJsonObject(0)
                 .get("properties");
@@ -121,11 +123,13 @@ public class InventoryEndpointIT {
 
         String osNameFromInventory = jsonFromInventory.getString("os.name");
         String osNameFromSystem = jsonFromSystem.getString("os.name");
-        this.assertProperty("os.name", "localhost", osNameFromSystem, osNameFromInventory);
+        this.assertProperty("os.name", "localhost",
+                           osNameFromSystem, osNameFromInventory);
 
         String userNameFromInventory = jsonFromInventory.getString("user.name");
         String userNameFromSystem = jsonFromSystem.getString("user.name");
-        this.assertProperty("user.name", "localhost", userNameFromSystem, userNameFromInventory);
+        this.assertProperty("user.name", "localhost",
+                            userNameFromSystem, userNameFromInventory);
 
         invResponse.close();
         sysResponse.close();
@@ -208,7 +212,9 @@ public class InventoryEndpointIT {
         this.assertResponse(sysUrl, response);
         response.close();
 
-        Response targetResponse = client.target(invUrl + INVENTORY_SYSTEMS + "/localhost").request().get();
+        Response targetResponse = client.target(invUrl + INVENTORY_SYSTEMS
+                                                + "/localhost").request()
+                                                .get();
         targetResponse.close();
     }
 }
