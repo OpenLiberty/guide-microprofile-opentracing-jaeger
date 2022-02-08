@@ -42,7 +42,7 @@ public class SystemEndpointIT {
 
         assertEquals(System.getProperty("os.name"), obj.getString("os.name"),
                 "The system property for the local and remote JVM should match");
-        
+
         response.close();
     }
 }

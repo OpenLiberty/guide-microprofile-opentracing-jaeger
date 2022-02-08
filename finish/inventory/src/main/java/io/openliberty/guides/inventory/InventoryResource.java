@@ -38,7 +38,7 @@ public class InventoryResource {
         Properties props = manager.get(hostname);
         if (props == null) {
             return Response.status(Response.Status.NOT_FOUND)
-                           .entity("{ \"error\" : \"Unknown hostname or the system service " 
+                           .entity("{ \"error\" : \"Unknown hostname or the system service "
                            + "may not be running on " + hostname + "\" }")
                            .build();
         }
@@ -46,7 +46,7 @@ public class InventoryResource {
         return Response.ok(props).build();
     }
     // end::getPropertiesForHost[]
-    
+
     @GET
     // tag::Traced-false[]
     @Traced(false)

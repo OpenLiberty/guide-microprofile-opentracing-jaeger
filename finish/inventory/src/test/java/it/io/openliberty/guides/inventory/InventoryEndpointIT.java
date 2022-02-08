@@ -137,7 +137,7 @@ public class InventoryEndpointIT {
         Response response = this.getResponse(invUrl + INVENTORY_SYSTEMS);
         this.assertResponse(invUrl, response);
 
-        Response badResponse = client.target(invUrl + INVENTORY_SYSTEMS + "/" 
+        Response badResponse = client.target(invUrl + INVENTORY_SYSTEMS + "/"
                                + "badhostname").request(MediaType.APPLICATION_JSON).get();
 
         assertEquals(404, badResponse.getStatus(),
@@ -155,7 +155,7 @@ public class InventoryEndpointIT {
      * <p>
      * Returns response information from the specified URL.
      * </p>
-     * 
+     *
      * @param url
      *          - target URL.
      * @return Response object with the response from the specified URL.
@@ -168,7 +168,7 @@ public class InventoryEndpointIT {
      * <p>
      * Asserts that the given URL has the correct response code of 200.
      * </p>
-     * 
+     *
      * @param url
      *          - target URL.
      * @param response
@@ -182,7 +182,7 @@ public class InventoryEndpointIT {
     /**
      * Asserts that the specified JVM system property is equivalent in both the
      * system and inventory services.
-     * 
+     *
      * @param propertyName
      *          - name of the system property to check.
      * @param hostname
