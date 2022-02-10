@@ -44,5 +44,6 @@ public class SystemEndpointIT {
                 "The system property for the local and remote JVM should match");
 
         response.close();
+        client.close();
     }
 }

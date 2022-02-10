@@ -39,8 +39,8 @@ public class InventoryEndpointIT {
 
     private Client client;
 
-    private static final  String INVENTORY_SYSTEMS = "inventory/systems";
-    private static final  String SYSTEM_PROPERTIES = "system/properties";
+    private static final String INVENTORY_SYSTEMS = "inventory/systems";
+    private static final String SYSTEM_PROPERTIES = "system/properties";
 
     @BeforeAll
     public static void oneTimeSetup() throws ServletException {
