@@ -15,7 +15,7 @@ package io.openliberty.guides.inventory;
 import java.util.Properties;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
-import jakarta.websocket.server.PathParam;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
