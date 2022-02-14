@@ -438,7 +438,7 @@ Select the **inventory** traces and click the **Find Traces** button.
 endif::[]
 
 You see a new trace record that is two spans long. One span is for the
-[hotspot=listContents file=1 hide_tags=Traced-false]`listContents()` JAX-RS method in the
+[hotspot=listContents file=1]`listContents()` JAX-RS method in the
 [hotspot file=1]`InventoryResource` class, and the other span is for the [hotspot=list file=0]`list()`
 method in the [hotspot file=0]`InventoryManager` class.
 
