@@ -354,7 +354,7 @@ curl -s http://localhost:9081/inventory/systems | jq
 Check your Jaeger server at the ***https://accountname-16686.theiadocker-4.proxy.cognitiveclass.ai*** URL. If you have the Jaeger UI open from a previous step, refresh the page. Select the **inventory** traces and click the **Find Traces** button.
 endif::[]
 
-You see a new trace record that is two spans long. One span is for the [hotspot=listContents file=1 hide_tags=Traced-false]`listContents()` restfulWS method in the [hotspot file=1]`InventoryResource` class, and the other span is for the [hotspot=list file=0]`list()` method in the [hotspot file=0]`InventoryManager` class.
+You see a new trace record that is two spans long. One span is for the [hotspot=listContents file=1]`listContents()` restfulWS method in the [hotspot file=1]`InventoryResource` class, and the other span is for the [hotspot=list file=0]`list()` method in the [hotspot file=0]`InventoryManager` class.
 
 Verify that you see the following spans:
 
