@@ -25,7 +25,7 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
-import openj9.internal.tools.attach.target.Response;
+import jakarta.ws.rs.core.Response;
 
 @RequestScoped
 @Path("/systems")
