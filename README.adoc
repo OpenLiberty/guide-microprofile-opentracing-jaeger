@@ -68,7 +68,7 @@ include::{common-includes}/gitclone.adoc[]
 // cloud-hosted guide instructions:
 ifdef::cloud-hosted[]
 Run the following docker command to start Jaeger server:
-```
+```bash
 docker run -d --name jaeger \
   -e COLLECTOR_ZIPKIN_HTTP_PORT=9411 \
   -p 5775:5775/udp \
@@ -81,7 +81,6 @@ docker run -d --name jaeger \
   -p 9411:9411 \
   jaegertracing/all-in-one:1.22
 ```
-{: codeblock}
 
 You can find information about the Jaeger server and instructions for starting the all-in-one executable file in the [Jaeger documentation](https://www.jaegertracing.io/docs/1.22/getting-started/#all-in-one).
 
@@ -107,18 +106,16 @@ endif::[]
 // cloud-hosted guide instructions:
 ifdef::cloud-hosted[]
 Navigate to the **finish/inventory** directory. Run the following Maven goal to build the **inventory** service and deploy it to Open Liberty:
-```
+```bash
 cd /home/project/guide-microprofile-opentracing-jaeger/finish/inventory
 mvn liberty:run
 ```
-{: codeblock}
 
 Open another command-line session and navigate to the **finish/system** directory. Run the following Maven goal to build the **system** service and deploy it to Open Liberty:
-```
+```bash
 cd /home/project/guide-microprofile-opentracing-jaeger/finish/system
 mvn liberty:run
 ```
-{: codeblock}
 endif::[]
 
 After you see the following message in both command-line sessions, both of your services are ready:
@@ -138,10 +135,9 @@ endif::[]
 // cloud-hosted guide instructions:
 ifdef::cloud-hosted[]
 Open another command-line session and run the following curl command from the terminal:
-```
+```bash
 curl -s http://localhost:9081/inventory/systems/localhost | jq
 ```
-{: codeblock}
 
 When you visit this endpoint, you make two GET HTTP requests, one to the **system** service and one to the **inventory** service. Both of these requests are configured to be traced, so a new trace is recorded in Jaeger.
 
@@ -175,12 +171,11 @@ endif::[]
 
 // cloud-hosted guide instructions:
 ifdef::cloud-hosted[]
-```
+```bash
 cd /home/project/guide-microprofile-opentracing-jaeger/finish
 mvn -pl system liberty:stop
 mvn -pl inventory liberty:stop
 ```
-{: codeblock}
 endif::[]
 
 // =================================================================================================
@@ -204,11 +199,10 @@ endif::[]
 
 // cloud-hosted guide instructions:
 ifdef::cloud-hosted[]
-```
+```bash
 cd /home/project/guide-microprofile-opentracing-jaeger/start/inventory
 mvn liberty:dev
 ```
-{: codeblock}
 endif::[]
 
 
@@ -225,11 +219,10 @@ endif::[]
 
 // cloud-hosted guide instructions:
 ifdef::cloud-hosted[]
-```
+```bash
 cd /home/project/guide-microprofile-opentracing-jaeger/start/system
 mvn liberty:dev
 ```
-{: codeblock}
 endif::[]
 
 After you see the following message, your application server in dev mode is ready:
@@ -252,16 +245,14 @@ endif::[]
 // cloud-hosted guide instructions:
 ifdef::cloud-hosted[]
 When the servers start, you can find the **system** service by running the following curl command:
-```
+```bash
 curl -s http://localhost:9080/system/properties | jq
 ```
-{: codeblock}
 
 and the **inventory** service by running the following curl command:
-```
+```bash
 curl -s http://localhost:9081/inventory/systems | jq
 ```
-{: codeblock}
 endif::[]
 
 // =================================================================================================
@@ -353,10 +344,9 @@ endif::[]
 // cloud-hosted guide instructions:
 ifdef::cloud-hosted[]
 Run the following curl command:
-```
+```bash
 curl -s http://localhost:9081/inventory/systems | jq
 ```
-{: codeblock}
 
 Check your Jaeger server at the ***https://accountname-16686.theiadocker-4.proxy.cognitiveclass.ai*** URL. If you have the Jaeger UI open from a previous step, refresh the page. Select the **inventory** traces and click the **Find Traces** button.
 endif::[]
@@ -401,10 +391,9 @@ endif::[]
 // cloud-hosted guide instructions:
 ifdef::cloud-hosted[]
 Run the following curl command:
-```
+```bash
 curl -s http://localhost:9081/inventory/systems | jq
 ```
-{: codeblock}
 
 Check your Jaeger server at the ***https://accountname-16686.theiadocker-4.proxy.cognitiveclass.ai*** URL. If you have the Jaeger UI open from a previous step, refresh the page. Select the **inventory** traces and click the **Find Traces** button. You see a new trace record that is just one span long for the remaining **list()** method in the **InventoryManager** class.
 endif::[]
@@ -451,10 +440,9 @@ endif::[]
 // cloud-hosted guide instructions:
 ifdef::cloud-hosted[]
 Run the following curl command:
-```
+```bash
 curl -s http://localhost:9081/inventory/systems/localhost | jq
 ```
-{: codeblock}
 
 Check your Jaeger server at the ***https://accountname-16686.theiadocker-4.proxy.cognitiveclass.ai*** URL. If you have the Jaeger UI open from a previous step, refresh the page. Select the **inventory** traces and click the **Find Traces** button.
 endif::[]
@@ -502,11 +490,10 @@ endif::[]
 // cloud-hosted guide instructions:
 ifdef::cloud-hosted[]
 Finally, stop the **Jaeger** service that you started in the previous step.
-```
+```bash
 docker stop jaeger
 docker rm jaeger
 ```
-{: codeblock}
 endif::[]
 
 // =================================================================================================
