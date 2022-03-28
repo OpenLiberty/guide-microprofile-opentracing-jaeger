@@ -86,7 +86,7 @@ You can find information about the Jaeger server and instructions for starting t
 
 Before you proceed, make sure that your Jaeger server is up and running. Click the following button or select **Launch Application** from the menu of the IDE, type in **16686** to specify the port number for the Jaeger service, and click the **OK** button. Jaeger can be found at the ***https://accountname-16686.theiadocker-4.proxy.cognitiveclass.ai*** URL, where **accountname** is your account name.
 
-::startApplication{port="16686" display="internal" name="Launch the Jaeger service" route="/"}
+::startApplication{port="16686" display="external" name="Launch Jaeger service" route="/"}
 endif::[]
 
 The `finish` directory in the root of this guide contains the finished application. Give it a try before you proceed.
@@ -107,13 +107,13 @@ endif::[]
 
 // cloud-hosted guide instructions:
 ifdef::cloud-hosted[]
-Navigate to the **finish/inventory** directory. Run the following Maven goal to build the **inventory** service and deploy it to Open Liberty:
+Navigate to the ***finish/inventory*** directory. Run the following Maven goal to build the ***inventory*** service and deploy it to Open Liberty:
 ```bash
 cd /home/project/guide-microprofile-opentracing-jaeger/finish/inventory
 mvn liberty:run
 ```
 
-Open another command-line session and navigate to the **finish/system** directory. Run the following Maven goal to build the **system** service and deploy it to Open Liberty:
+Open another command-line session and navigate to the ***finish/system*** directory. Run the following Maven goal to build the ***system*** service and deploy it to Open Liberty:
 ```bash
 cd /home/project/guide-microprofile-opentracing-jaeger/finish/system
 mvn liberty:run
@@ -141,10 +141,10 @@ Open another command-line session and run the following curl command from the te
 curl -s http://localhost:9081/inventory/systems/localhost | jq
 ```
 
-When you visit this endpoint, you make two GET HTTP requests, one to the **system** service and one to the **inventory** service. Both of these requests are configured to be traced, so a new trace is recorded in Jaeger.
+When you visit this endpoint, you make two GET HTTP requests, one to the ***system*** service and one to the **inventory** service. Both of these requests are configured to be traced, so a new trace is recorded in Jaeger.
 
 To view the traces, click the following button or go to the ***https://accountname-16686.theiadocker-4.proxy.cognitiveclass.ai*** URL. 
-::startApplication{port="16686" display="internal" name="Launch the Jaeger service" route="/"}
+::startApplication{port="16686" display="external" name="Launch Jaeger service" route="/"}
 
 You can view the traces for the inventory or system services under the **Search** tab. Select the services in the **Select a service** menu and click the **Find Traces** button at the end of the section.
 endif::[]
@@ -249,12 +249,12 @@ endif::[]
 
 // cloud-hosted guide instructions:
 ifdef::cloud-hosted[]
-When the servers start, you can find the **system** service by running the following curl command:
+When the servers start, you can find the ***system*** service by running the following curl command:
 ```bash
 curl -s http://localhost:9080/system/properties | jq
 ```
 
-and the **inventory** service by running the following curl command:
+and the ***inventory*** service by running the following curl command:
 ```bash
 curl -s http://localhost:9081/inventory/systems | jq
 ```
@@ -353,8 +353,8 @@ Run the following curl command:
 curl -s http://localhost:9081/inventory/systems | jq
 ```
 
-Check your Jaeger server at the ***https://accountname-16686.theiadocker-4.proxy.cognitiveclass.ai*** URL. If you have the Jaeger UI open from a previous step, refresh the page. Select the **inventory** traces and click the **Find Traces** button.
-::startApplication{port="16686" display="internal" name="Launch the Jaeger service" route="/"}
+Check your Jaeger server at the ***https://accountname-16686.theiadocker-4.proxy.cognitiveclass.ai*** URL. If you have the Jaeger UI open from a previous step, refresh the page. Select the ***inventory*** traces and click the **Find Traces** button.
+::startApplication{port="16686" display="external" name="Launch Jaeger service" route="/"}
 endif::[]
 
 You see a new trace record that is two spans long. One span is for the [hotspot=listContents file=1]`listContents()` restfulWS method in the [hotspot file=1]`InventoryResource` class, and the other span is for the [hotspot=list file=0]`list()` method in the [hotspot file=0]`InventoryManager` class.
@@ -402,7 +402,7 @@ curl -s http://localhost:9081/inventory/systems | jq
 ```
 
 Check your Jaeger server at the ***https://accountname-16686.theiadocker-4.proxy.cognitiveclass.ai*** URL. If you have the Jaeger UI open from a previous step, refresh the page. Select the **inventory** traces and click the **Find Traces** button. You see a new trace record that is just one span long for the remaining **list()** method in the **InventoryManager** class.
-::startApplication{port="16686" display="internal" name="Launch the Jaeger service" route="/"}
+::startApplication{port="16686" display="external" name="Launch the Jaeger service" route="/"}
 endif::[]
 
 Verify that you see the following span:
@@ -452,7 +452,7 @@ curl -s http://localhost:9081/inventory/systems/localhost | jq
 ```
 
 Check your Jaeger server at the ***https://accountname-16686.theiadocker-4.proxy.cognitiveclass.ai*** URL. If you have the Jaeger UI open from a previous step, refresh the page. Select the **inventory** traces and click the **Find Traces** button.
-::startApplication{port="16686" display="internal" name="Launch the Jaeger service" route="/"}
+::startApplication{port="16686" display="external" name="Launch the Jaeger service" route="/"}
 endif::[]
 
 Verify that there are three spans from `inventory` and one span from `system`:
@@ -497,7 +497,7 @@ endif::[]
 
 // cloud-hosted guide instructions:
 ifdef::cloud-hosted[]
-Finally, stop the **Jaeger** service that you started in the previous step.
+Finally, stop the ***Jaeger*** service that you started in the previous step.
 ```bash
 docker stop jaeger
 docker rm jaeger
