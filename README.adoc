@@ -11,7 +11,7 @@
 :page-guide-category: microprofile
 :page-essential: false
 :page-releasedate: 2020-08-20
-:page-description: Explore how to enable and customize tracing of RESTful and non-RESTful endpoint methods by using Jaeger and MicroProfile OpenTracing.
+:page-description: Explore how to enable and customize tracing of JAX-RS and non-JAX-RS endpoint methods by using Jaeger and MicroProfile OpenTracing.
 :page-tags: ['MicroProfile']
 :page-permalink: /guides/{projectid}
 :imagesdir: /img/guide/{projectid}
@@ -26,7 +26,7 @@
 [.hidden]
 NOTE: This repository contains the guide documentation source. To view the guide in published form, view it on the https://openliberty.io/guides/{projectid}.html[Open Liberty website].
 
-Explore how to enable and customize tracing of RESTful and non-RESTful endpoint methods by using MicroProfile OpenTracing and Jaeger.
+Explore how to enable and customize tracing of JAX-RS and non-JAX-RS endpoint methods by using MicroProfile OpenTracing and Jaeger.
 
 
 :inv-url: http://localhost:9081/inventory/systems
@@ -37,7 +37,7 @@ Explore how to enable and customize tracing of RESTful and non-RESTful endpoint 
 
 == What you'll learn
 
-You will learn how to enable automatic tracing for RESTful endpoint methods and create custom tracers for non-RESTful endpoint methods by using MicroProfile OpenTracing.
+You will learn how to enable automatic tracing for JAX-RS endpoint methods and create custom tracers for non-JAX-RS endpoint methods by using MicroProfile OpenTracing.
 
 OpenTracing is a standard API for instrumenting microservices for distributed tracing. Distributed tracing helps troubleshoot microservices by examining and logging requests as they propagate through a distributed system, allowing developers to tackle the otherwise difficult task of debugging these requests. Without a distributed tracing system in place, analyzing the workflows of operations becomes difficult, particularly in regard to pinpointing when and by whom a request is received or when a response is sent back.
 
@@ -298,13 +298,13 @@ include::finish/inventory/pom.xml[]
 
 == Enabling and disabling distributed tracing
 
-The https://github.com/eclipse/microprofile-opentracing[MicroProfile OpenTracing feature^] enables tracing of all RESTful endpoint methods by default. To further control and customize these traces, use the `@Traced` annotation to enable and disable tracing of particular methods. You can also inject a custom `Tracer` object to create and customize spans.
+The https://github.com/eclipse/microprofile-opentracing[MicroProfile OpenTracing feature^] enables tracing of all JAX-RS endpoint methods by default. To further control and customize these traces, use the `@Traced` annotation to enable and disable tracing of particular methods. You can also inject a custom `Tracer` object to create and customize spans.
 
 This feature is already enabled in the `inventory` and `system` configuration files.
 
 === Enabling distributed tracing without code instrumentation
 
-Because tracing of all RESTful endpoint methods is enabled by default, you only need to enable the [hotspot=mpOpenTracing file=0]`MicroProfile OpenTracing` feature in the `server.xml` file to see some basic traces in Jaeger.
+Because tracing of all JAX-RS endpoint methods is enabled by default, you only need to enable the [hotspot=mpOpenTracing file=0]`MicroProfile OpenTracing` feature in the `server.xml` file to see some basic traces in Jaeger.
 
 The OpenTracing API is exposed as a third-party API in Open Liberty. To add the visibility of OpenTracing APIs to the application, add `third-party` to the types of API packages that this class loader supports. Instead of explicitly configuring a list of API packages that includes `third-party`, set the `+third-party` value to the [hotspot=thirdParty]`apiTypeVisibility` attribute in the [hotspot=thirdParty]`classLoader` configuration. This configuration adds `third-party` to the default list of API package types that are supported.
 
@@ -322,7 +322,7 @@ Use the [hotspot=Traced file=0]`@Traced` annotation to define explicit span crea
 
 The [hotspot=Traced file=0]`@Traced` annotation can be configured with the following two parameters:
 
-* The `value=[true|false]` parameter indicates whether a particular class or method is traced. For example, while all RESTful endpoint methods are traced by default, you can disable their tracing by using the `@Traced(false)` annotation. This parameter is set to `true` by default.
+* The `value=[true|false]` parameter indicates whether a particular class or method is traced. For example, while all JAX-RS endpoint methods are traced by default, you can disable their tracing by using the `@Traced(false)` annotation. This parameter is set to `true` by default.
 * The `operationName=<Span name>` parameter indicates the name of the span that is assigned to the method that is traced. If you omit this parameter, the span is named with the `<package name>.<class name>.<method name>` format. If you use this parameter at a class level, then all methods within that class have the same span name unless they are explicitly overridden by another `@Traced` annotation.
 
 [role="code_command hotspot file=0", subs="quotes"]
@@ -338,7 +338,7 @@ include::finish/inventory/src/main/java/io/openliberty/guides/inventory/Inventor
 ----
 
 [role="edit_command_text"]
-Enable tracing of the [hotspot=list file=0]`list()` non-RESTful endpoint method by updating [hotspot=Traced file=0]`@Traced` as shown.
+Enable tracing of the [hotspot=list file=0]`list()` non-JAX-RS endpoint method by updating [hotspot=Traced file=0]`@Traced` as shown.
 
 // static guide instructions:
 ifndef::cloud-hosted[]
@@ -356,7 +356,7 @@ Check your Jaeger server. If you have the Jaeger UI open from a previous step, r
 ::startApplication{port="16686" display="external" name="Visit Jaeger service" route="/"}
 endif::[]
 
-You see a new trace record that is two spans long. One span is for the [hotspot=listContents file=1]`listContents()` RESTful endpoint method in the [hotspot file=1]`InventoryResource` class, and the other span is for the [hotspot=list file=0]`list()` method in the [hotspot file=0]`InventoryManager` class.
+You see a new trace record that is two spans long. One span is for the [hotspot=listContents file=1]`listContents()` JAX-RS endpoint method in the [hotspot file=1]`InventoryResource` class, and the other span is for the [hotspot=list file=0]`list()` method in the [hotspot file=0]`InventoryManager` class.
 
 Verify that you see the following spans:
 
@@ -371,7 +371,7 @@ include::finish/inventory/src/main/java/io/openliberty/guides/inventory/Inventor
 
 === Disable automatic distributed tracing
 
-You can use the `@Traced` annotation with a value of `false` to disable automatic distributed tracing of RESTful endpoint methods.
+You can use the `@Traced` annotation with a value of `false` to disable automatic distributed tracing of JAX-RS endpoint methods.
 
 [role="code_command hotspot file=1", subs="quotes"]
 ----
@@ -386,7 +386,7 @@ include::finish/inventory/src/main/java/io/openliberty/guides/inventory/Inventor
 ----
 
 [role="edit_command_text"]
-Disable tracing of the [hotspot=listContents file=1]`listContents()` RESTful endpoint method by setting [hotspot=Traced-false file=1]`@Traced(false)`.
+Disable tracing of the [hotspot=listContents file=1]`listContents()` JAX-RS endpoint method by setting [hotspot=Traced-false file=1]`@Traced(false)`.
 
 // static guide instructions:
 ifndef::cloud-hosted[]
