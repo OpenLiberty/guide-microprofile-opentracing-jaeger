@@ -26,7 +26,7 @@
 [.hidden]
 NOTE: This repository contains the guide documentation source. To view the guide in published form, view it on the https://openliberty.io/guides/{projectid}.html[Open Liberty website].
 
-Explore how to enable and customize tracing of RESTful endpoint and non-RESTful endpoint methods by using MicroProfile OpenTracing and Jaeger.
+Explore how to enable and customize tracing of RESTful and non-RESTful endpoint methods by using MicroProfile OpenTracing and Jaeger.
 
 
 :inv-url: http://localhost:9081/inventory/systems
