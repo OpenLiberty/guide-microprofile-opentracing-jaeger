@@ -390,7 +390,7 @@ Disable tracing of the [hotspot=listContents file=0]`listContents()` JAX-RS endp
 
 // static guide instructions:
 ifndef::cloud-hosted[]
-Go to the {inv-url}[{inv-url}^] URL and check your Jaeger server at the {jaeger-url}[{jaeger-url}^] URL. If you have the Jaeger UI open from a previous step, refresh the page. Select the `inventory` traces and click the **Find Traces** button. You see a new trace record that is just one span long for the remaining [hotspot=list file=0]`list()` method in the `InventoryManager` class.
+Go to the {inv-url}[{inv-url}^] URL and check your Jaeger server at the {jaeger-url}[{jaeger-url}^] URL. If you have the Jaeger UI open from a previous step, refresh the page. Select the `inventory` traces and click the **Find Traces** button. You see a new trace record that is just one span long for the remaining [hotspot=list file=1]`list()` method in the `InventoryManager` class.
 endif::[]
 
 // cloud-hosted guide instructions:
