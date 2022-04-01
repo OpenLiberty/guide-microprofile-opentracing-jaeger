@@ -373,7 +373,7 @@ include::finish/inventory/src/main/java/io/openliberty/guides/inventory/Inventor
 
 You can use the `@Traced` annotation with a value of `false` to disable automatic distributed tracing of JAX-RS endpoint methods.
 
-[role="code_command hotspot file=1", subs="quotes"]
+[role="code_command hotspot file=0", subs="quotes"]
 ----
 #Update the `InventoryResource` class.#
 `inventory/src/main/java/io/openliberty/guides/inventory/InventoryResource.java`
@@ -386,7 +386,7 @@ include::finish/inventory/src/main/java/io/openliberty/guides/inventory/Inventor
 ----
 
 [role="edit_command_text"]
-Disable tracing of the [hotspot=listContents file=1]`listContents()` JAX-RS endpoint method by setting [hotspot=Traced-false file=1]`@Traced(false)`.
+Disable tracing of the [hotspot=listContents file=0]`listContents()` JAX-RS endpoint method by setting [hotspot=Traced-false file=0]`@Traced(false)`.
 
 // static guide instructions:
 ifndef::cloud-hosted[]
