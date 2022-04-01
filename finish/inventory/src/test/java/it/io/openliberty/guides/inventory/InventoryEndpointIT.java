@@ -1,6 +1,6 @@
 // tag::copyright[]
 /*******************************************************************************
- * Copyright (c) 2018, 2020 IBM Corporation and others.
+ * Copyright (c) 2018, 2022 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,18 +12,24 @@
 // end::copyright[]
 package it.io.openliberty.guides.inventory;
 
-import javax.json.JsonObject;
-import javax.servlet.ServletException;
-import javax.ws.rs.ServerErrorException;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import jakarta.json.JsonObject;
+import jakarta.servlet.ServletException;
+import jakarta.ws.rs.ServerErrorException;
+import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.client.ClientBuilder;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
-import org.apache.cxf.jaxrs.provider.jsrjsonp.JsrJsonpProvider;
-import org.junit.jupiter.api.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class InventoryEndpointIT {
@@ -33,8 +39,8 @@ public class InventoryEndpointIT {
 
     private Client client;
 
-    private final static String INVENTORY_SYSTEMS = "inventory/systems";
-    private final static String SYSTEM_PROPERTIES = "system/properties";
+    private static final String INVENTORY_SYSTEMS = "inventory/systems";
+    private static final String SYSTEM_PROPERTIES = "system/properties";
 
     @BeforeAll
     public static void oneTimeSetup() throws ServletException {
@@ -44,13 +50,13 @@ public class InventoryEndpointIT {
         invUrl = "http://localhost:" + invPort + "/";
 
         Response clearResponse = ClientBuilder.newClient()
-                .register(JsrJsonpProvider.class)
                 .target(invUrl + INVENTORY_SYSTEMS)
                 .request()
                 .delete();
 
         if (clearResponse.getStatus() != Response.Status.OK.getStatusCode()
-                && clearResponse.getStatus() != Response.Status.NOT_MODIFIED.getStatusCode()) {
+            && clearResponse.getStatus()
+            != Response.Status.NOT_MODIFIED.getStatusCode()) {
             throw new ServletException("Could not clear inventory manager.");
         }
     }
@@ -58,7 +64,6 @@ public class InventoryEndpointIT {
     @BeforeEach
     public void setup() {
         client = ClientBuilder.newClient();
-        client.register(JsrJsonpProvider.class);
     }
 
     @AfterEach
@@ -115,20 +120,23 @@ public class InventoryEndpointIT {
         this.assertResponse(invUrl, invResponse);
         this.assertResponse(sysUrl, sysResponse);
 
-        JsonObject jsonFromInventory = (JsonObject) invResponse.readEntity(JsonObject.class)
-                                                               .getJsonArray("systems")
-                                                               .getJsonObject(0)
-                                                               .get("properties");
+        JsonObject jsonFromInventory = (JsonObject)
+                                        invResponse.readEntity(JsonObject.class)
+                                        .getJsonArray("systems")
+                                        .getJsonObject(0)
+                                        .get("properties");
 
         JsonObject jsonFromSystem = sysResponse.readEntity(JsonObject.class);
 
         String osNameFromInventory = jsonFromInventory.getString("os.name");
         String osNameFromSystem = jsonFromSystem.getString("os.name");
-        this.assertProperty("os.name", "localhost", osNameFromSystem, osNameFromInventory);
+        this.assertProperty("os.name", "localhost",
+                            osNameFromSystem, osNameFromInventory);
 
         String userNameFromInventory = jsonFromInventory.getString("user.name");
         String userNameFromSystem = jsonFromSystem.getString("user.name");
-        this.assertProperty("user.name", "localhost", userNameFromSystem, userNameFromInventory);
+        this.assertProperty("user.name", "localhost",
+                            userNameFromSystem, userNameFromInventory);
 
         invResponse.close();
         sysResponse.close();
@@ -140,8 +148,9 @@ public class InventoryEndpointIT {
         Response response = this.getResponse(invUrl + INVENTORY_SYSTEMS);
         this.assertResponse(invUrl, response);
 
-        Response badResponse = client.target(invUrl + INVENTORY_SYSTEMS + "/" 
-                               + "badhostname").request(MediaType.APPLICATION_JSON).get();
+        Response badResponse = client.target(invUrl + INVENTORY_SYSTEMS + "/"
+                               + "badhostname").request(MediaType.APPLICATION_JSON)
+                               .get();
 
         assertEquals(404, badResponse.getStatus(),
                 "BadResponse expected status: 404. Response code not as expected.");
@@ -158,7 +167,7 @@ public class InventoryEndpointIT {
      * <p>
      * Returns response information from the specified URL.
      * </p>
-     * 
+     *
      * @param url
      *          - target URL.
      * @return Response object with the response from the specified URL.
@@ -171,7 +180,7 @@ public class InventoryEndpointIT {
      * <p>
      * Asserts that the given URL has the correct response code of 200.
      * </p>
-     * 
+     *
      * @param url
      *          - target URL.
      * @param response
@@ -185,7 +194,7 @@ public class InventoryEndpointIT {
     /**
      * Asserts that the specified JVM system property is equivalent in both the
      * system and inventory services.
-     * 
+     *
      * @param propertyName
      *          - name of the system property to check.
      * @param hostname
@@ -211,7 +220,10 @@ public class InventoryEndpointIT {
         this.assertResponse(sysUrl, response);
         response.close();
 
-        Response targetResponse = client.target(invUrl + INVENTORY_SYSTEMS + "/localhost").request().get();
+        Response targetResponse = client.target(invUrl
+                                               + INVENTORY_SYSTEMS + "/localhost")
+                                               .request()
+                                               .get();
         targetResponse.close();
     }
 }
