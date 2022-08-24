@@ -17,7 +17,7 @@
 :imagesdir: /img/guide/{projectid}
 :page-related-guides: ['cdi-intro', 'microprofile-opentracing']
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/prod
-:page-seo-title: Enabling distributed tracing in Java microservices using Eclipse MicroProfile OpenTracing and the Jaeger tracing system.
+:page-seo-title: Enabling distributed tracing in Java microservices using MicroProfile OpenTracing and the Jaeger tracing system.
 :page-seo-description: A getting started tutorial and an example on how to enable distributed tracing in Java microservices to easily trace request flows that span multiple resources by using MicroProfile OpenTracing and Jaeger tracing system.
 :source-highlighter: prettify
 :guide-author: Open Liberty
